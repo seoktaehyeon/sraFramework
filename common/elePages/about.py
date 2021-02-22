@@ -3,6 +3,9 @@
 # Author: elementGenerator.py
 
 
-from . import about
-from . import ext
-from . import qsphere
+def Api():
+	return {
+		"menu": "about",
+		"page": "Api",
+	}
+

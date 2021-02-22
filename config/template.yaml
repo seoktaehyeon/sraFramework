@@ -1,0 +1,9 @@
+# RobotFramework Configuration
+# If you wanna debug via browser, you can set RF_DEBUG as true
+RF_DEBUG: false
+
+# Target Configuration
+TARGET_URL: https://qualitysphere.gitee.io
+TARGET_USER: will
+TARGET_PASSWORD: password
+TARGET_TITLE: 欢迎使用 | QSphere
