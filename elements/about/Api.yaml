@@ -1,3 +1,3 @@
 接口文档: '//li/a[text()="接口文档"]'
-SWAGGER_INPUT: '//input'
-SWAGGER_EXPLORE: '//button[text()="Explore"]'
+SwaggerInput: '//input'
+SwaggerExplore: '//button[text()="Explore"]'
