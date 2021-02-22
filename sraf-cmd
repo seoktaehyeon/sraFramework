@@ -1,0 +1,133 @@
+#!/bin/bash
+# Author: v.stone@163.com
+#set -ex
+
+export PYTHONPATH=${PWD}
+export RF_REPORT_TITLE="SRA Framework Automation"
+export RF_REPORT_TYPE="local-html"
+export RF_PWD=${PWD}
+export RF_TAG RF_TAG_OPT
+export RF_VAR_FILE RF_VAR_FILE_OPT
+export RF_DIR='.'
+export ROBOT="robot --consolewidth 80 --consolecolors on -d output --listener common.Listener.allure_robotframework"
+
+
+function help_doc
+{
+    docker_img_name=$(echo $0 | sed 's#./##')
+    cat <<EOF
+用法:
+$0 <选项> <参数>
+
+    --config    环境变量配置文件，在 RobotFramework 执行时可以直接使用定义的变量和值。
+                该选项是必须的。
+
+    --suite     如果不指定该选项，将会执行当前目录下所有的测试用例。
+                如果指定，则仅执行指定用例集下的所有测试用例。
+                该选项是可选的。
+
+    --tag       如果不指定该选项，将会执行当前目录下所有的测试用例。
+                如果指定，则仅执行指定用例集下的所有测试用例。
+                该选项是可选的。
+
+    --clean     清理输出目录 output
+                该选项是可选的。
+
+    --report    指定生成的测试报告格式，默认为 local-html
+                local-html     | 生成默认的 RobotFramework 自带 HTML 报告
+                local-allure   | 生成本地并自动打开的 Allure 报告
+                jenkins-allure | 生成可以在 Jenkins 上通过在线打开的 Allure 报告
+                该选项是可选的。
+
+举例:
+$0 --config config/debug.yaml
+$0 --config config/debug.yaml --tag demo --clean
+$0 --config config/debug.yaml --tag demo --clean --report local-allure
+
+若想在 docker 容器中运行，可构建容器后运行：
+docker build --pull -t $docker_img_name:local .
+docker run --shm-size=1g --rm -p 80:80 -it $docker_img_name:local bash -c "$0 --config config/debug.yaml --tag demo --clean --report local-allure"
+EOF
+    exit 1
+}
+
+function print_line
+{
+    for i in $(seq 2 80)
+    do
+        echo -n '='
+    done
+    echo '='
+    return 0
+}
+
+function check_allure_cmd
+{
+    output=$(which allure 2>&1)
+    return $?
+}
+
+# Main
+eval set -- $(getopt -o "" -l config:,suite:,tag:,clean,report: --name "$0" -- "$@")
+while (( $# != 0 ))
+do
+    case $1 in
+        --config)
+            export RF_VAR_FILE="$2"
+            [[ -f ${RF_VAR_FILE} ]] || {
+                echo "${RF_VAR_FILE} 不存在，请检查路径是否正确"
+                exit 1
+            }
+            export RF_VAR_FILE_OPT="--variablefile ${RF_VAR_FILE}"
+            shift 2
+            ;;
+        --suite)
+            export RF_DIR=$2
+            shift 2
+            ;;
+        --tag)
+            export RF_TAG="$2"
+            export RF_TAG_OPT="--include ${RF_TAG}"
+            shift 2
+            ;;
+        --clean)
+            rm -rf output
+            shift 1
+            ;;
+        --report)
+            export RF_REPORT_TYPE="$2"
+            echo "local-html local-allure jenkins-allure" | grep -q "${RF_REPORT_TYPE}" || help_doc
+            shift 2
+            ;;
+        --)
+            shift 1
+            ;;
+        *)
+            help_doc
+            exit 1
+            ;;
+    esac
+done
+
+[[ -z ${RF_VAR_FILE} ]] && help_doc
+
+print_line
+python common/elementGenerator.py
+check_allure_cmd && export ALLURE_CMD="true"
+
+print_line
+echo -e "$ROBOT --reporttitle '${RF_REPORT_TITLE}' ${RF_VAR_FILE_OPT} ${RF_TAG_OPT} ${RF_DIR}"
+$ROBOT --reporttitle "${RF_REPORT_TITLE}" ${RF_VAR_FILE_OPT} ${RF_TAG_OPT} ${RF_DIR}
+
+[[ "${RF_REPORT_TYPE}" == "local-allure" ]] && {
+    print_line
+    python common/allure/reloadAllureProperties.py
+    allure generate output/allure-results -o output/allure-report
+    print_line
+    allure open -p 80 output/allure-report
+}
+
+[[ "${RF_REPORT_TYPE}" == "jenkins-allure" ]] && {
+    print_line
+    python common/allure/reloadAllureProperties.py
+}
