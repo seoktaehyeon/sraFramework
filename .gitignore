@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# this project
+debug.yaml
+debug.py
+debug.sh
+output/
+
