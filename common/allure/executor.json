@@ -1,0 +1,10 @@
+{
+  "name": "Jenkins",
+  "type": "jenkins",
+  "url": "https://qualitysphere.gitee.io/jenkins",
+  "buildOrder": 1,
+  "buildName": "allure-report#1",
+  "buildUrl": "https://qualitysphere.gitee.io/jenkins/build#1",
+  "reportUrl": "https://qualitysphere.gitee.io/jenkins/build#1/AllureReport",
+  "reportName": "Demo allure report"
+}

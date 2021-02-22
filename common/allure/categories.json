@@ -1,0 +1,14 @@
+[
+  {
+    "name": "成功",
+    "matchedStatuses": ["passed"]
+  },
+  {
+    "name": "失败",
+    "matchedStatuses": ["failed"]
+  },
+  {
+    "name": "异常",
+    "matchedStatuses": ["skipped", "broken"]
+  }
+]

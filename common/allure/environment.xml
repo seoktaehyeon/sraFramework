@@ -1,0 +1,30 @@
+<environment>
+    <parameter>
+        <key>被测对象</key>
+        <value>ALLURE_TEST_URL</value>
+    </parameter>
+    <parameter>
+        <key>自动化框架</key>
+        <value>ALLURE_EXEC_FRAMEWORK</value>
+    </parameter>
+    <parameter>
+        <key>浏览器</key>
+        <value>ALLURE_EXEC_BROWSER_NAME</value>
+    </parameter>
+    <parameter>
+        <key>浏览器版本</key>
+        <value>ALLURE_EXEC_BROWSER_VER</value>
+    </parameter>
+    <parameter>
+        <key>操作系统</key>
+        <value>ALLURE_EXEC_SYS_NAME</value>
+    </parameter>
+    <parameter>
+        <key>系统版本</key>
+        <value>ALLURE_EXEC_SYS_VER</value>
+    </parameter>
+    <parameter>
+        <key>Python 版本</key>
+        <value>ALLURE_EXEC_PY_VER</value>
+    </parameter>
+</environment>
