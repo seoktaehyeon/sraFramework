@@ -18,9 +18,9 @@ The solution of Selenium + RobotFramework + Allure Reporting Tool
 目录|作用|文件命名|文件内容示例
 ----|----|----|----
 testcase|用于存放测试用例|\<suite\>.robot|[testcase/demo.robot](testcase/demo.robot)
-keywords|用于存放关键字<br>*以便在编写 testcase 中的用例时引用*|\<menu\>\<Page\>.robot|[keywords/menu1Page1.robot](testcase/menu1Page1.robot)
-pages|用于存放封装好的页面元素操作函数<br>*以便在封装 keywords 中的关键字时使用*|\<menu\>/\<Page\>.py|[pages/menu1/Page1.py](pages/menu1/Page1.py)
-elements|用于存放页面元素的 xpath<br>*以便被 pages 中的函数加载*|\<menu\>/\<Page\>.yaml|[elements/menu1/Page1.yaml](elements/menu1/Page1.yaml)
+keywords|用于存放关键字<br>*以便在编写 testcase 中的用例时引用*|\<menu\>\<Page\>.robot|[keywords/qsphereVision.robot](keywords/qsphereVision.robot)
+pages|用于存放封装好的页面元素操作函数<br>*以便在封装 keywords 中的关键字时使用*|\<menu\>/\<Page\>.py|[pages/qsphere/Vision.py](pages/qsphere/Vision.py)
+elements|用于存放页面元素的 xpath<br>*以便被 pages 中的函数加载*|\<menu\>/\<Page\>.yaml|[elements/qsphere/Vision.yaml](elements/qsphere/Vision.yaml)
 common|用于存放与产品解耦的基础函数<br>*以便被 pages 中的函数调用*|xxx.py|[common/Browser.py](common/Browser.py)
 config|用于存放用例执行过程中使用的全局变量和测试数据<br>*以便在 testcase 或 keywords 中可以直接引用*|xxx.yaml|[config/template.yaml](config/template.yaml)
 
@@ -76,16 +76,19 @@ import os
 from common.Browser import Browser
 from common import elePages
 
+
 os.environ['RF_PWD'] = os.path.join('.')
 os.environ['RF_DIR'] = os.path.join('.')
-os.environ['RF_VAR_FILE'] = os.path.join('.', 'config', 'demo.yaml')
+os.environ['RF_VAR_FILE'] = os.path.join('.', 'config', 'template.yaml')
+assert os.path.exists(os.getenv('RF_VAR_FILE')), u'文件不存在'
 
 browser = Browser()
 browser.access(url='https://qualitysphere.gitee.io')
 browser.click_button(
-    page=elePages.menu1.Page1(),
+    page=elePages.qsphere.Vision(),
     key=u'愿景'
 )
+browser.close_chrome()
 ```
 
 #### 如何在容器中执行

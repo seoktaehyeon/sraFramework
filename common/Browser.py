@@ -117,7 +117,7 @@ class Browser(object):
             os.makedirs(_path)
         _png_name = '%s.png' % str(datetime.now().timestamp()).replace('.', '')
         self.browser.get_screenshot_as_file(os.path.join(_path, _png_name))
-        if os.getenv('RF_REPORT_TYPE').lower() in ["local-allure", "jenkins-allure"]:
+        if str(os.getenv('RF_REPORT_TYPE')).lower() in ["local-allure", "jenkins-allure"]:
             allure.attach.file(source=os.path.join(_path, _png_name), attachment_type=allure.attachment_type.PNG)
         # elif os.getenv('RF_REPORT_TYPE').lower() in ["local-html"]:
         else:

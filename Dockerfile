@@ -7,7 +7,7 @@ COPY elements elements
 COPY pages pages
 COPY keywords keywords
 COPY testcase testcase
-COPY kdp-robot kdp-robot
+COPY sraf-cmd sraf-cmd
 COPY requirements.txt requirements.txt
 ENV PYTHONPATH=/workspace
 RUN pip install -r requirements.txt
