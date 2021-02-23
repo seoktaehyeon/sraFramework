@@ -103,8 +103,10 @@ class allure_robotframework(object):
             name = allure_commons.plugin_manager.get_name(plugin)
             allure_commons.plugin_manager.unregister(name=name)
         """以下是修改的地方"""
-        if os.getenv('RF_REPORT_TYPE').lower() in ['local-allure', 'jenkins-allure']:
+        if str(os.getenv('RF_REPORT_TYPE')).lower() in ['local-allure', 'jenkins-allure']:
             print('Allure:\t %s' % os.path.join(os.path.abspath('.'), DEFAULT_OUTPUT_PATH))
+        if str(os.getenv('RF_REPORT_TYPE')).lower() in ['jenkins-allure']:
+            print('Report:\t %s/allure' % os.getenv('BUILD_URL'))
 
 
 class Messages(object):
