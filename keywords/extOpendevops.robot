@@ -5,7 +5,7 @@ Library             ../pages/ext/Opendevops.py
 
 *** Keywords ***
 SRAF.ext.Opendevops.进入页面
-    access opendevops page
+    access odo page
 
-SRAF.ext.Oepndevops.检查标题
-    check opendevops page title
+SRAF.ext.Opendevops.检查标题
+    check odo title

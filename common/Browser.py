@@ -50,13 +50,16 @@ class Browser(object):
             cls._instance.browser = launch_chrome()
         return cls._instance
 
-    def close_chrome(self):
+    @classmethod
+    def close_chrome(cls):
         """
         关闭浏览器
         :return:
         """
         print(u'关闭浏览器')
-        self.browser.close()
+        cls._instance.browser.close()
+        del cls._instance.browser
+        # cls._instance.browser = launch_chrome()
 
     @staticmethod
     def get_ele_xpath(ele_menu, ele_page, ele_name):
@@ -105,6 +108,7 @@ class Browser(object):
                 return self.browser.find_element_by_xpath(xpath)
             except NoSuchElementException:
                 sleep(1)
+        self.screenshot(log_level='error')
         raise NoSuchElementException(u'页面上未找到该元素')
 
     def screenshot(self, log_level: str = 'warn'):
@@ -182,6 +186,7 @@ class Browser(object):
         print(u'检查网页标题 %s' % title)
         self.screenshot(log_level='info')
         assert self.browser.title == title, u'标题实际为 %s' % self.browser.title
+        return True
 
     def upload_file(self, page: dict, key: str, value: str):
         """
@@ -214,6 +219,22 @@ class Browser(object):
         :return:
         """
         self.browser.refresh()
+
+    def get_element_text(self, page: dict, key: str):
+        print(u'获取 %s 的文字内容' % key)
+        xpath = self.get_ele_xpath(page['menu'], page['page'], key)
+        ele = self._find_ele(xpath)
+        for i in range(1, 10):
+            try:
+                _text = ele.text
+                self.screenshot(log_level='info')
+                print(u'获取成功')
+                return _text
+            except InvalidElementStateException:
+                self.screenshot(log_level='warn')
+                sleep(1)
+        self.screenshot(log_level='error')
+        raise InvalidElementStateException
 
 
 if __name__ == '__main__':

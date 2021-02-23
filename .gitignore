@@ -133,4 +133,4 @@ debug.yaml
 debug.py
 debug.sh
 output/
-
+.idea/

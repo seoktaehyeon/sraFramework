@@ -3,10 +3,10 @@
 # Author: elementGenerator.py
 
 
-def Vison():
+def Vision():
 	return {
 		"menu": "qsphere",
-		"page": "Vison",
+		"page": "Vision",
 	}
 
 

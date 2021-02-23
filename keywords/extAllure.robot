@@ -11,5 +11,5 @@ SRAF.ext.Allure.检查标题
     check allure page title
 
 SRAF.ext.Allure.点击菜单
-    [Arguments]         $menu      
-    click menu          $menu
+    [Arguments]         ${menu}
+    click menu          ${menu}

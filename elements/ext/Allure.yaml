@@ -1,3 +1,4 @@
-Allue: '//li/a[text()="接口文档"]'
-AllureTitle: '//h3[text()="Allure 框架中文手册"]'
-AllureInstall: '//li/a[text()="2.1. 安装"]'
+Allure: '//li/a[text()="Allure"]'
+标题: '//h3[text()="Allure 框架中文手册"]'
+安装: '//li/a[text()="2.1. 安装"]'
+Logo: '//h1'
