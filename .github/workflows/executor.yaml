@@ -1,0 +1,22 @@
+name: sraFramework CI
+
+on:
+  - push
+
+env:
+  RF_CONFIG: bxwill
+  RF_TAG: robotframework
+
+jobs:
+
+  build:
+
+    runs-on: bxwill/robotframework:py-chrome-allure
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Execute Test Case
+        run: |
+          ./sraf-cmd --config config/${RF_CONFIG} --tag ${RF_TAG}
