@@ -4,14 +4,14 @@ on:
   - push
 
 env:
-  RF_CONFIG: bxwill
-  RF_TAG: robotframework
+  RF_CONFIG: template.yaml
+  RF_TAG: demo
 
 jobs:
 
   build:
 
-    runs-on: bxwill/robotframework:py-chrome-allure
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
@@ -19,4 +19,4 @@ jobs:
           submodules: true
       - name: Execute Test Case
         run: |
-          ./sraf-cmd --config config/${RF_CONFIG} --tag ${RF_TAG}
+          docker run --shm-size=1g --rm -it bxwill/robotframework:py-chrome-allure bash -c "./sraf-cmd --config config/${RF_CONFIG} --tag ${RF_TAG}"
