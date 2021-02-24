@@ -19,4 +19,5 @@ jobs:
           submodules: true
       - name: Execute Test Case
         run: |
-          docker run --shm-size=1g --rm -i bxwill/robotframework:py-chrome-allure bash -c "./sraf-cmd --config config/${RF_CONFIG} --tag ${RF_TAG}"
+          docker build --pull -t sraf-cmd:local .
+          docker run --shm-size=1g --rm -i sraf-cmd:local bash -c "./sraf-cmd --config config/${RF_CONFIG} --tag ${RF_TAG}"
