@@ -1,7 +1,7 @@
 # sraFramework
-The solution of Selenium + RobotFramework + Allure Reporting Tool
+An end-to-end automation solution for web product testing using Selenium + RobotFramework + Allure Reporting Tool
 
-> 一套用以 Web 界面端到端测试的自动化解决方案
+> 利用 Selenium + RobotFramework + Allure Reporting Tool 设计的一套关于 Web 端到端自动化解决方案
 
 ## 环境准备
 
